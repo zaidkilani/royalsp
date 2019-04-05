@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="transport_cost_list_view">
+			<field name="name">transport_cost</field>
+			<field name="model">transport.cost</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="qut_number" />
+					<field name="is_next" />
+					<field name="is_expired" />
+					<field name="partner_id" />
+					<field name="free_days" />
+					<field name="country_loading_id" />
+					<field name="state_loading_id" />
+					<field name="city_loading_id" />
+					<field name="place_loading_id" />
+					<field name="country_dest_id" />
+					<field name="state_dest_id" />
+					<field name="city_dest_id" />
+					<field name="place_dest_id" />
+					<field name="date" />
+					<field name="price" />
+					<field name="total" />
+				</tree>
+			</field>
+		</record>
+
+
+		<record model="ir.ui.view" id="transport_cost_form_view">
+			<field name="name">transport_cost</field>
+			<field name="model">transport.cost</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<group>
+								<field name="qut_number" />
+								<field name="is_next" />
+								<field name="is_expired" />
+								<field name="partner_id"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+								<field name="free_days" />
+								<field name="country_loading_id"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+								<field name="state_loading_id"
+									domain="[('country_id','=',country_loading_id)]"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+								<field name="city_loading_id"
+									domain="[('country_id','=',country_loading_id)]"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+								<field name="place_loading_id"
+									domain="[('country_id','=',country_loading_id),'|',
+									'&amp;',('city_id','=',city_loading_id),('city_id','!=',False),
+									'&amp;',('state_id','=',state_loading_id),('state_id','!=',False)]"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+							</group>
+							<group>
+								<field name="country_dest_id"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+								<field name="state_dest_id"
+									domain="[('country_id','=',country_dest_id)]"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+								<field name="city_dest_id"
+									domain="[('country_id','=',country_dest_id)]"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+								<field name="place_dest_id"
+									domain="[('country_id','=',country_dest_id),'|',
+									'&amp;',('city_id','=',city_dest_id),('city_id','!=',False),
+									'&amp;',('state_id','=',state_dest_id),('state_id','!=',False)]"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+									<field name="is_port" invisible="1"/>
+									<span class="badge badge-danger" attrs="{'invisible': ['|',('is_port', '=', True),('place_dest_id', '=', False)]}">Is Not a Port</span>
+								<field name="date" />
+								<field name="price" />
+							</group>
+						</group>
+						<group>
+							<field name="price_line_ids">
+								<tree editable="botton">
+									<field name="container_size_id"
+										options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+										<field name="weight_type_id"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+								<field name="truck_type_id"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+									<field name="price" />
+								</tree>
+								<form></form>
+							</field>
+							<field name="cost_line_ids">
+								<tree editable="botton">
+									<field name="product_id"
+										options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+									<field name="container_size_id"
+										options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+									<field name="per_quantity" />
+									<field name="cost" />
+								</tree>
+								<form>
+									<field name="product_id"
+										options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+									<field name="cost" />
+								</form>
+							</field>
+						</group>
+						<group>
+							<field name="total" />
+						</group>
+						<group>
+							<field name="note" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window"
+			id="transport_cost_action">
+			<field name="name">Transport Cost</field>
+			<field name="res_model">transport.cost</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+		<menuitem id="transport_cost_menu" parent="location_menu"
+			action="transport_cost_action" />
+
+	</data>
+</odoo>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="clearance_cost_list_view">
+			<field name="name">clearance_cost</field>
+			<field name="model">clearance.cost</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="qut_number" />
+					<field name="is_next" />
+					<field name="is_expired" />
+					<field name="partner_id" />
+					<field name="customs_id" />
+					<field name="customs_declaration_id" />
+					<field name="date" />
+					<field name="price" />
+					<field name="total" />
+				</tree>
+			</field>
+		</record>
+
+
+		<record model="ir.ui.view" id="clearance_cost_form_view">
+			<field name="name">clearance_cost</field>
+			<field name="model">clearance.cost</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<group>
+								<field name="qut_number" />
+								<field name="is_next" />
+								<field name="is_expired" />
+								<field name="shipment_method" />
+								<field name="shipment_type" />
+								<field name="partner_id"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+								<field name="customs_id"
+									context="{'customs_filter':partner_id}"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+								<field name="partner_point_ids" widget="many2many_tags" />
+								<field name="customs_declaration_id"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+							</group>
+							<group>
+								<field name="date" />
+								<field name="price" />
+							</group>
+						</group>
+						<group>
+							<field name="cost_line_ids">
+								<tree editable="botton">
+									<field name="from_truck" />
+									<field name="to_truck" />
+									<field name="cost" />
+								</tree>
+								<form>
+									<field name="from_truck" />
+									<field name="to_truck" />
+									<field name="cost" />
+								</form>
+							</field>
+						</group>
+						<group>
+							<field name="total" />
+						</group>
+						<group>
+							<field name="note" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window"
+			id="clearance_cost_action">
+			<field name="name">Clearance Cost</field>
+			<field name="res_model">clearance.cost</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+		<menuitem id="clearance_cost_menu" parent="location_menu"
+			action="clearance_cost_action" />
+
+	</data>
+</odoo>

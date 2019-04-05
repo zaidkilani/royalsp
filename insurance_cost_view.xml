@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>	<data>
+
+		<record model="ir.ui.view" id="insurance_cost_list_view">
+			<field name="name">insurance_cost</field>
+			<field name="model">insurance.cost</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="partner_id" />
+					<field name="qut_number" />
+					<field name="date" />
+					<field name="country_loading_id" />
+					<field name="state_loading_id" />
+					<field name="city_loading_id" />
+					<field name="country_dest_id" />
+					<field name="state_loading_id" />
+					<field name="city_dest_id" />
+					<field name="from_date" />
+					<field name="to_date" />
+					<field name="insurance_type_id" />
+				</tree>
+			</field>
+		</record>
+
+
+		<record model="ir.ui.view" id="insurance_cost_form_view">
+			<field name="name">insurance_cost</field>
+			<field name="model">insurance.cost</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<group>
+								<field name="partner_id"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+								<field name="qut_number" />
+								<field name="date" />
+								<field name="country_loading_id"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+								<field name="state_loading_id"
+									domain="[('country_id','=',country_loading_id)]"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+								<field name="city_loading_id"
+									domain="[('country_id','=',country_loading_id)]"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+									<field name="rate" />
+							</group>
+							<group>
+								<field name="country_dest_id"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+								<field name="state_dest_id"
+									domain="[('country_id','=',country_dest_id)]"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+								<field name="city_dest_id"
+									domain="[('country_id','=',country_dest_id)]"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+								<field name="from_date" />
+								<field name="to_date" />
+								<field name="insurance_type_id"
+									options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+
+							</group>
+						</group>
+						<group>
+							<field name="cost_line_ids">
+								<tree editable="botton">
+									<field name="product_id"
+										options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" />
+									<field name="cost" />
+
+								</tree>
+
+							</field>
+
+						</group>
+						<group>
+							<field name="condition_ids">
+								<tree editable="botton">
+									<field name="name" />
+									<field name="type" />
+
+								</tree>
+
+							</field>
+
+						</group>
+						<group>
+							<group>
+								<field name="total" />
+							</group>
+						</group>
+						<group>
+							<field name="note" />
+
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window"
+			id="insurance_cost_action">
+			<field name="name">Insurance Cost</field>
+			<field name="res_model">insurance.cost</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+		<menuitem id="insurance_cost_menu" parent="location_menu"
+			action="insurance_cost_action" />
+
+	</data>
+</odoo>

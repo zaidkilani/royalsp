@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>	<data>
+
+		<record model="ir.ui.view" id="res_place_list_view">
+			<field name="name">res_place</field>
+			<field name="model">res.place</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="country_id" />
+					<field name="city_id" />
+					<field name="state_id"/>
+					<field name="address"/>
+				</tree>
+			</field>
+		</record>
+
+
+		<record model="ir.ui.view" id="res_place_form_view">
+			<field name="name">res_place</field>
+			<field name="model">res.place</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<group>
+							<field name="country_id" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+								<field name="city_id" domain="[('country_id','=',country_id)]" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+							</group>
+							<group>
+								<field name="state_id" domain="[('country_id','=',country_id)]" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+								<field name="is_port" />
+								<field name="port_id" attrs="{'invisible':[('is_port','=',False)]}" domain="[('country_id','=',country_id)]" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+							</group>
+							<group>
+								<field name="address"/>
+							</group>
+							
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="res_place_action">
+			<field name="name">Place</field>
+			<field name="res_model">res.place</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+		<menuitem  id="res_place_menu"
+			parent="location_menu" action="res_place_action" />
+
+	</data>
+</odoo>
